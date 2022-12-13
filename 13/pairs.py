@@ -50,3 +50,32 @@ evaluations = [eval_pair(pair) for pair in pairs]
 # Part 1
 print("The sum of the indices of correct order pairs is",
       sum([i + 1 for i, e in enumerate(evaluations) if e]))
+
+# Part 2
+
+# Convert from list of pairs to list of packets and
+# Add the markers
+packets = list(itertools.chain(*pairs))
+packets.extend(([[2]], [[6]]))
+
+def sort_pass(packets):
+    """Perform one pass of packet sorting."""
+    complete = True
+    for i in range(len(packets) -1):
+        get = packets[i], packets[i+1]
+        if not eval_pair(get):
+            complete = False
+            packets[i+1], packets[i] = get
+    return packets, complete
+
+complete = False
+n = 0
+while not complete:
+    pass_list, complete = sort_pass(packets)
+    n += 1
+
+print(f"Sorting took {n} passes",
+      f"The first marker is in position {[i for i, p in enumerate(pass_list) if p == [[2]]][0] +1}",
+      f"The second marker is in position {[i for i, p in enumerate(pass_list) if p == [[6]]][0] +1}")
+
+
