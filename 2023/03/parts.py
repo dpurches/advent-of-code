@@ -7,7 +7,6 @@ numbers = {}
 symbols = {}
 
 
-
 for y, row in enumerate(schematic):
     number_rolling = ""
     for x, item in enumerate([*row]):
